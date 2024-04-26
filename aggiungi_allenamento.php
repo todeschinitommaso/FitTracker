@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
         $conn->close();
 
         // Reindirizzamento a gestione.php dopo l'aggiunta dell'allenamento
-        header("Location: gestione.php");
+        header("Location: aggiungi_allenamento.php");
         exit(); // Assicura che lo script termini dopo il reindirizzamento
     }
 }
@@ -152,7 +152,7 @@ if (isset($_POST['submit'])) {
 </div>
 
 <div class="form-container">
-<h1>AGGIUNGI ESERCIZIO</h1>
+<h1>AGGIUNGI ESERCIZIO ALL'ALLENAMENTO</h1>
     <form method="post">
         <label for="esercizio">Scegli l'esercizio:</label>
         <select name="esercizio" id="esercizio" required>

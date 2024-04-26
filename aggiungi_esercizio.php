@@ -88,28 +88,37 @@
         <input type="text" name="intensita" id="intensita" required><br>
         <label for="muscolo">Muscolo:</label>
         <select name="muscolo" id="muscolo">
-            <option value="1">Addominali</option>
-            <option value="2">Abduttori</option>
-            <option value="3">Adduttori</option>
-            <option value="4">Bicipiti</option>
-            <option value="5">Polpacci</option>
-            <option value="6">Cardio</option>
-            <option value="7">Petto</option>
-            <option value="8">Avambracci</option>
-            <option value="9">Glutei</option>
-            <option value="10">Femorali</option>
-            <option value="11">Lats</option>
-            <option value="12">Lombari</option>
-            <option value="13">Collo</option>
-            <option value="14">Quadricipiti</option>
-            <option value="15">Spalle</option>
-            <option value="16">Trapezio</option>
-            <option value="19">Tricipiti</option>
-            <option value="20">Upper Back</option>
+            <?php
+                // Connessione al database
+                $servername = "localhost";
+                $username = "ceo";
+                $password = "1234";
+                $dbname = "tracker";
+
+                $conn = new mysqli($servername, $username, $password, $dbname);
+
+                if ($conn->connect_error) {
+                    die("Connessione fallita: " . $conn->connect_error);
+                }
+
+                // Query per ottenere i muscoli disponibili
+                $sql = "SELECT id, nome FROM muscoli";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                        echo "<option value='".$row["id"]."'>".$row["nome"]."</option>";
+                    }
+                } else {
+                    echo "<option value=''>Nessun muscolo trovato</option>";
+                }
+
+                $conn->close();
+            ?>
         </select><br>
         <label for="altro">Altro:</label>
         <input type="text" name="altro" id="altro"><br>
-        <input type="submit" name="submit" href="gestione.php" value="Aggiungi Allenamento">
+        <input type="submit" name="submit" value="Aggiungi Esercizio">
     </form>
 </div>
 
@@ -123,11 +132,6 @@ if (isset($_POST['submit'])) {
     $intensita = $_POST['intensita'];
     $muscolo = $_POST['muscolo'];
     $altro = $_POST['altro'];
-
-    $servername = "localhost";
-    $username = "ceo";
-    $password = "1234";
-    $dbname = "tracker";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
 

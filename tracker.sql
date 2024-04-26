@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Apr 26, 2024 alle 17:50
+-- Creato il: Apr 26, 2024 alle 18:31
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -61,14 +61,41 @@ CREATE TABLE `allenamento` (
 --
 
 INSERT INTO `allenamento` (`id`, `id_giorno`, `id_esercizio`) VALUES
-(3, 1, 2),
-(4, 5, 7),
-(5, 5, 6),
-(6, 5, 9),
-(7, 5, 6),
-(12, 5, 8),
-(13, 6, 8),
-(17, 5, 5);
+(19, 1, 1),
+(20, 4, 1),
+(21, 1, 2),
+(22, 4, 2),
+(23, 1, 3),
+(24, 4, 3),
+(25, 1, 4),
+(26, 4, 4),
+(27, 1, 5),
+(28, 4, 5),
+(29, 1, 6),
+(30, 4, 6),
+(31, 1, 7),
+(32, 4, 7),
+(33, 1, 8),
+(34, 4, 8),
+(35, 2, 9),
+(36, 5, 9),
+(37, 2, 10),
+(38, 5, 10),
+(39, 2, 11),
+(40, 5, 11),
+(41, 2, 12),
+(42, 5, 12),
+(43, 2, 13),
+(44, 5, 13),
+(45, 2, 14),
+(46, 5, 14),
+(47, 2, 15),
+(48, 5, 15),
+(49, 3, 16),
+(50, 3, 17),
+(51, 3, 18),
+(52, 3, 19),
+(53, 3, 20);
 
 -- --------------------------------------------------------
 
@@ -123,7 +150,18 @@ INSERT INTO `esercizi` (`id`, `nome`, `serie`, `reps`, `pausa`, `peso`, `intensi
 (6, 'Alzate Laterali', 3, 15, '1\"', 10, 'cedimento', 15, ''),
 (7, 'French Press EZ', 3, 12, '1\"', 15, 'cedimento', 19, ''),
 (8, 'Pushdown Corda', 3, 12, '1\"', 14, 'cedimento', 19, ''),
-(9, 'Trazioni Zavorrate', 5, 5, '1.30\"', 5, 'cedimento', 11, '');
+(9, 'Trazioni Zavorrate', 5, 5, '1.30\"', 5, 'cedimento', 11, ''),
+(10, 'Rematore su Panca Inclinata', 3, 12, '1.30\"', 14, 'cedimento', 20, ''),
+(11, 'Lat Machine Presa Neutra', 3, 12, '1\"', 32, 'cedimento', 11, ''),
+(12, 'Pulley Triangolo', 3, 12, '1\"', 27, 'cedimento', 20, ''),
+(13, 'Face Pull', 3, 15, '1\"', 27, 'cedimento', 15, ''),
+(14, 'Spider Curl', 3, 12, '1\"', 10, 'cedimento', 4, ''),
+(15, 'Curl Panca Inclinata', 3, 12, '1', 8, 'cedimento', 4, ''),
+(16, 'Affondi Bulgari', 4, 10, '1.30\"', 16, 'cedimento', 14, ''),
+(17, 'Leg Extension', 3, 15, '1.30\"', 56, 'cedimento', 14, ''),
+(18, 'RDL Multipower con manubri', 3, 12, '1,30', 16, 'cedimento', 10, 'Stinco appoggiato al bilancere e usi i manubri per scendere, posiziona 2 dischi da 5 sotto le punte dei piedi'),
+(19, 'Calf Raise', 3, 15, '1', 60, 'cedimento', 5, ''),
+(20, 'Abductor Machine', 3, 12, '1\"', 29, 'cedimento', 3, '');
 
 -- --------------------------------------------------------
 
@@ -273,7 +311,7 @@ ALTER TABLE `alimenti`
 -- AUTO_INCREMENT per la tabella `allenamento`
 --
 ALTER TABLE `allenamento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT per la tabella `dieta`
@@ -285,7 +323,7 @@ ALTER TABLE `dieta`
 -- AUTO_INCREMENT per la tabella `esercizi`
 --
 ALTER TABLE `esercizi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT per la tabella `giorni`
