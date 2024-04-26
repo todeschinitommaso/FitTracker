@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Apr 24, 2024 alle 17:57
+-- Creato il: Apr 26, 2024 alle 17:50
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -24,30 +24,73 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `alimenti`
+--
+
+CREATE TABLE `alimenti` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `calorie` int(11) NOT NULL,
+  `proteine` int(11) NOT NULL,
+  `carboidrati` int(11) NOT NULL,
+  `grassi` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `alimenti`
+--
+
+INSERT INTO `alimenti` (`id`, `nome`, `calorie`, `proteine`, `carboidrati`, `grassi`) VALUES
+(1, 'Latte Parzialmente Scremato', 47, 3, 5, 2),
+(2, 'Pane', 271, 9, 50, 4);
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `allenamento`
 --
 
 CREATE TABLE `allenamento` (
   `id` int(11) NOT NULL,
-  `nome` varchar(50) NOT NULL,
-  `id_es1` int(11) DEFAULT NULL,
-  `id_es2` int(11) DEFAULT NULL,
-  `id_es3` int(11) DEFAULT NULL,
-  `id_es4` int(11) DEFAULT NULL,
-  `id_es5` int(11) DEFAULT NULL,
-  `id_es6` int(11) DEFAULT NULL,
-  `id_es7` int(11) DEFAULT NULL,
-  `id_es8` int(11) DEFAULT NULL,
-  `id_es9` int(11) DEFAULT NULL,
-  `id_es10` int(11) DEFAULT NULL
+  `id_giorno` int(11) NOT NULL,
+  `id_esercizio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dump dei dati per la tabella `allenamento`
 --
 
-INSERT INTO `allenamento` (`id`, `nome`, `id_es1`, `id_es2`, `id_es3`, `id_es4`, `id_es5`, `id_es6`, `id_es7`, `id_es8`, `id_es9`, `id_es10`) VALUES
-(1, 'Push', 3, 4, 6, 7, 8, 1, 2, 5, NULL, NULL);
+INSERT INTO `allenamento` (`id`, `id_giorno`, `id_esercizio`) VALUES
+(3, 1, 2),
+(4, 5, 7),
+(5, 5, 6),
+(6, 5, 9),
+(7, 5, 6),
+(12, 5, 8),
+(13, 6, 8),
+(17, 5, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `dieta`
+--
+
+CREATE TABLE `dieta` (
+  `id` int(11) NOT NULL,
+  `id_giorno` int(11) NOT NULL,
+  `id_pasto` int(11) NOT NULL,
+  `id_alimento` int(11) NOT NULL,
+  `quantita` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `dieta`
+--
+
+INSERT INTO `dieta` (`id`, `id_giorno`, `id_pasto`, `id_alimento`, `quantita`) VALUES
+(1, 5, 1, 1, 200),
+(2, 5, 1, 2, 50);
 
 -- --------------------------------------------------------
 
@@ -79,7 +122,8 @@ INSERT INTO `esercizi` (`id`, `nome`, `serie`, `reps`, `pausa`, `peso`, `intensi
 (5, 'Spinte Manubri', 3, 10, '1.30\"', 14, 'cedimento', 15, ''),
 (6, 'Alzate Laterali', 3, 15, '1\"', 10, 'cedimento', 15, ''),
 (7, 'French Press EZ', 3, 12, '1\"', 15, 'cedimento', 19, ''),
-(8, 'Pushdown Corda', 3, 12, '1\"', 14, 'cedimento', 19, '');
+(8, 'Pushdown Corda', 3, 12, '1\"', 14, 'cedimento', 19, ''),
+(9, 'Trazioni Zavorrate', 5, 5, '1.30\"', 5, 'cedimento', 11, '');
 
 -- --------------------------------------------------------
 
@@ -89,22 +133,21 @@ INSERT INTO `esercizi` (`id`, `nome`, `serie`, `reps`, `pausa`, `peso`, `intensi
 
 CREATE TABLE `giorni` (
   `id` int(11) NOT NULL,
-  `nome` varchar(15) NOT NULL,
-  `id_allenamento` int(11) DEFAULT NULL
+  `nome` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dump dei dati per la tabella `giorni`
 --
 
-INSERT INTO `giorni` (`id`, `nome`, `id_allenamento`) VALUES
-(1, 'Lunedi', 1),
-(2, 'Martedí', NULL),
-(3, 'Mercoledí', NULL),
-(4, 'Giovedí', 1),
-(5, 'Venerdí', NULL),
-(6, 'Sabato', NULL),
-(7, 'Domenica', NULL);
+INSERT INTO `giorni` (`id`, `nome`) VALUES
+(1, 'Lunedi'),
+(2, 'Martedí'),
+(3, 'Mercoledí'),
+(4, 'Giovedí'),
+(5, 'Venerdí'),
+(6, 'Sabato'),
+(7, 'Domenica');
 
 -- --------------------------------------------------------
 
@@ -141,25 +184,54 @@ INSERT INTO `muscoli` (`id`, `nome`) VALUES
 (19, 'Tricipiti'),
 (20, 'Upper Back');
 
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `pasti`
+--
+
+CREATE TABLE `pasti` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `pasti`
+--
+
+INSERT INTO `pasti` (`id`, `nome`) VALUES
+(1, 'Colazione'),
+(2, 'Spuntino'),
+(3, 'Pranzo'),
+(4, 'Merenda'),
+(5, 'Cena');
+
 --
 -- Indici per le tabelle scaricate
 --
+
+--
+-- Indici per le tabelle `alimenti`
+--
+ALTER TABLE `alimenti`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indici per le tabelle `allenamento`
 --
 ALTER TABLE `allenamento`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `rif_1` (`id_es1`),
-  ADD KEY `rif_2` (`id_es2`),
-  ADD KEY `rif_3` (`id_es3`),
-  ADD KEY `rif_4` (`id_es4`),
-  ADD KEY `rif_5` (`id_es5`),
-  ADD KEY `rif_6` (`id_es6`),
-  ADD KEY `rif_7` (`id_es7`),
-  ADD KEY `rif_8` (`id_es8`),
-  ADD KEY `rif_9` (`id_es9`),
-  ADD KEY `rif_10` (`id_es10`);
+  ADD KEY `rif_giorno` (`id_giorno`),
+  ADD KEY `rif_esercizio` (`id_esercizio`);
+
+--
+-- Indici per le tabelle `dieta`
+--
+ALTER TABLE `dieta`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `rif_pasto` (`id_pasto`),
+  ADD KEY `rif_alimento` (`id_alimento`),
+  ADD KEY `rif_giorno1` (`id_giorno`);
 
 --
 -- Indici per le tabelle `esercizi`
@@ -173,8 +245,7 @@ ALTER TABLE `esercizi`
 -- Indici per le tabelle `giorni`
 --
 ALTER TABLE `giorni`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `rif_allenamento` (`id_allenamento`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indici per le tabelle `muscoli`
@@ -183,20 +254,38 @@ ALTER TABLE `muscoli`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indici per le tabelle `pasti`
+--
+ALTER TABLE `pasti`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT per le tabelle scaricate
 --
+
+--
+-- AUTO_INCREMENT per la tabella `alimenti`
+--
+ALTER TABLE `alimenti`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `allenamento`
 --
 ALTER TABLE `allenamento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT per la tabella `dieta`
+--
+ALTER TABLE `dieta`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `esercizi`
 --
 ALTER TABLE `esercizi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT per la tabella `giorni`
@@ -211,6 +300,12 @@ ALTER TABLE `muscoli`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
+-- AUTO_INCREMENT per la tabella `pasti`
+--
+ALTER TABLE `pasti`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- Limiti per le tabelle scaricate
 --
 
@@ -218,28 +313,22 @@ ALTER TABLE `muscoli`
 -- Limiti per la tabella `allenamento`
 --
 ALTER TABLE `allenamento`
-  ADD CONSTRAINT `rif_1` FOREIGN KEY (`id_es1`) REFERENCES `esercizi` (`id`),
-  ADD CONSTRAINT `rif_10` FOREIGN KEY (`id_es10`) REFERENCES `esercizi` (`id`),
-  ADD CONSTRAINT `rif_2` FOREIGN KEY (`id_es2`) REFERENCES `esercizi` (`id`),
-  ADD CONSTRAINT `rif_3` FOREIGN KEY (`id_es3`) REFERENCES `esercizi` (`id`),
-  ADD CONSTRAINT `rif_4` FOREIGN KEY (`id_es4`) REFERENCES `esercizi` (`id`),
-  ADD CONSTRAINT `rif_5` FOREIGN KEY (`id_es5`) REFERENCES `esercizi` (`id`),
-  ADD CONSTRAINT `rif_6` FOREIGN KEY (`id_es6`) REFERENCES `esercizi` (`id`),
-  ADD CONSTRAINT `rif_7` FOREIGN KEY (`id_es7`) REFERENCES `esercizi` (`id`),
-  ADD CONSTRAINT `rif_8` FOREIGN KEY (`id_es8`) REFERENCES `esercizi` (`id`),
-  ADD CONSTRAINT `rif_9` FOREIGN KEY (`id_es9`) REFERENCES `esercizi` (`id`);
+  ADD CONSTRAINT `rif_esercizio` FOREIGN KEY (`id_esercizio`) REFERENCES `esercizi` (`id`),
+  ADD CONSTRAINT `rif_giorno` FOREIGN KEY (`id_giorno`) REFERENCES `giorni` (`id`);
+
+--
+-- Limiti per la tabella `dieta`
+--
+ALTER TABLE `dieta`
+  ADD CONSTRAINT `rif_alimento` FOREIGN KEY (`id_alimento`) REFERENCES `alimenti` (`id`),
+  ADD CONSTRAINT `rif_giorno1` FOREIGN KEY (`id_giorno`) REFERENCES `giorni` (`id`),
+  ADD CONSTRAINT `rif_pasto` FOREIGN KEY (`id_pasto`) REFERENCES `pasti` (`id`);
 
 --
 -- Limiti per la tabella `esercizi`
 --
 ALTER TABLE `esercizi`
   ADD CONSTRAINT `rif_muscolo` FOREIGN KEY (`id_muscolo`) REFERENCES `muscoli` (`id`);
-
---
--- Limiti per la tabella `giorni`
---
-ALTER TABLE `giorni`
-  ADD CONSTRAINT `rif_allenamento` FOREIGN KEY (`id_allenamento`) REFERENCES `allenamento` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
