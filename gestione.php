@@ -99,7 +99,8 @@
     <div class="vertical-line"></div>
     <div class="column">
         <h2>Gestione Dieta</h2>
-        <!-- Aggiungi qui la gestione della dieta -->
+        <button onclick="window.location.href = 'aggiungi_alimento.php';">AGGIUNGI ALIMENTO</button>
+        <button onclick="window.location.href = 'aggiungi_dieta.php';">AGGIUNGI DIETA</button>
     </div>
 </div>
 
