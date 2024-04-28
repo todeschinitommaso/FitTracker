@@ -39,7 +39,7 @@
         overflow: hidden;
     }
     th, td {
-        padding: 12px 15px;
+        padding: 8px 10px; /* Accorciamento della larghezza */
         text-align: left;
         border-bottom: 1px solid #ddd;
     }
@@ -72,18 +72,27 @@
     .day-menu a:hover {
         background-color: #ccc;
     }
-    .delete-button {
+    .delete-button, .save-button {
         padding: 5px 10px;
         font-size: 14px;
         cursor: pointer;
         border: none;
         border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    .delete-button {
         background-color: #f44336;
         color: white;
-        transition: background-color 0.3s;
     }
     .delete-button:hover {
         background-color: #d32f2f;
+    }
+    .save-button {
+        background-color: #4CAF50;
+        color: white;
+    }
+    .save-button:hover {
+        background-color: #45a049;
     }
     .back-button {
         position: absolute;
@@ -102,6 +111,13 @@
     }
     .back-button button:hover {
         background-color: #45a049;
+    }
+    .editable-input {
+        width: calc(100% - 20px); /* Riduce la larghezza per lasciare spazio al bordo */
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
     }
 </style>
 </head>
@@ -122,30 +138,56 @@
 </div>
 
 <?php
-// Connessione al database
-$servername = "localhost";
-$username = "ceo"; // Nome utente del database
-$password = "1234"; // Password del database
-$dbname = "tracker"; // Nome del database
+include 'config.php';
 
-// Creazione della connessione
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Verifica della connessione
-if ($conn->connect_error) {
-    die("Connessione fallita: " . $conn->connect_error);
+// Funzione per aggiornare i dati nel database
+function updateDato($conn, $id, $campo, $valore) {
+    $sql = "UPDATE allenamento SET $campo = '$valore' WHERE id = $id";
+    if ($conn->query($sql) === TRUE) {
+        return true; // Successo nell'aggiornamento
+    } else {
+        return false; // Errore nell'aggiornamento
+    }
 }
 
-// Gestione dell'eliminazione dell'esercizio se è stato inviato l'ID dell'esercizio da eliminare
-if (isset($_GET['elimina_esercizio'])) {
-    $id_esercizio = $_GET['elimina_esercizio'];
-    $sql_delete = "DELETE FROM allenamento WHERE id_esercizio = $id_esercizio";
-    if ($conn->query($sql_delete) === TRUE) {
-        // Se l'eliminazione è avvenuta con successo, ricarica la pagina
-        header("Location: modifica_allenamento.php?giorno=" . $_GET['giorno']);
+// Funzione per eliminare un esercizio
+function eliminaEsercizio($conn, $id) {
+    $sql = "DELETE FROM allenamento WHERE id = $id";
+    if ($conn->query($sql) === TRUE) {
+        return true; // Successo nell'eliminazione
+    } else {
+        return false; // Errore nell'eliminazione
+    }
+}
+
+// Se viene inviata una richiesta di eliminazione di un esercizio
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['elimina_esercizio']) && isset($_GET['giorno'])) {
+    $id = $_GET['elimina_esercizio'];
+
+    // Elimina l'esercizio dal database
+    if (eliminaEsercizio($conn, $id)) {
+        // Successo
+        header("Location: modifica_allenamento.php?giorno=" . $_GET['giorno']); // reindirizza per evitare l'invio di dati tramite refresh
         exit();
     } else {
-        echo "Errore nell'eliminazione dell'esercizio: " . $conn->error;
+        // Errore
+        echo "<div style='text-align: center; color: red;'>Errore nell'eliminazione dell'esercizio.</div>";
+    }
+}
+
+// Se viene inviata una richiesta di salvataggio
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id']) && isset($_POST['campo']) && isset($_POST['valore'])) {
+    $id = $_POST['id'];
+    $campo = $_POST['campo'];
+    $valore = $_POST['valore'];
+
+    // Aggiorna il dato nel database
+    if (updateDato($conn, $id, $campo, $valore)) {
+        // Successo
+        echo "<div style='text-align: center; color: green;'>Dato aggiornato con successo!</div>";
+    } else {
+        // Errore
+        echo "<div style='text-align: center; color: red;'>Errore nell'aggiornamento del dato.</div>";
     }
 }
 
@@ -163,10 +205,19 @@ $giorni_settimana = array(
 $giorno_corrente = $giorni_settimana[$giorno_selezionato];
 
 // Query per ottenere i dati degli esercizi per il giorno selezionato
-$sql = "SELECT e.id AS id_esercizio, e.nome AS nome_esercizio, e.serie, e.reps, e.pausa, e.peso, e.intensita, m.nome AS nome_muscolo, e.altro
-        FROM esercizi e
-        INNER JOIN allenamento a ON e.id = a.id_esercizio
+$sql = "SELECT a.id AS id_allenamento, 
+               e.id AS id_esercizio, 
+               e.nome AS nome_esercizio, 
+               a.serie, 
+               a.reps, 
+               a.pausa, 
+               a.peso, 
+               a.intensita, 
+               m.nome AS nome_muscolo, 
+               a.altro
+        FROM allenamento a
         INNER JOIN giorni g ON a.id_giorno = g.id
+        INNER JOIN esercizi e ON a.id_esercizio = e.id
         INNER JOIN muscoli m ON e.id_muscolo = m.id
         WHERE g.id = $giorno_selezionato";
 
@@ -179,10 +230,10 @@ if ($result->num_rows > 0) {
     echo "<thead>";
     echo "<tr>";
     echo "<th>Esercizio</th>";
-    echo "<th>Serie</th>";
-    echo "<th>Ripetizioni</th>";
-    echo "<th>Pausa</th>";
-    echo "<th>Peso</th>";
+    echo "<th style='width: 100px;'>Serie</th>"; // Accorcia la larghezza
+    echo "<th style='width: 100px;'>Reps</th>"; // Accorcia la larghezza
+    echo "<th style='width: 100px;'>Pausa</th>"; // Accorcia la larghezza
+    echo "<th style='width: 100px;'>Peso</th>"; // Accorcia la larghezza
     echo "<th>Intensità</th>";
     echo "<th>Muscolo</th>";
     echo "<th>Altro</th>";
@@ -193,14 +244,14 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         echo "<tr>";
         echo "<td>".$row["nome_esercizio"]."</td>";
-        echo "<td>".$row["serie"]."</td>";
-        echo "<td>".$row["reps"]."</td>";
-        echo "<td>".$row["pausa"]."</td>";
-        echo "<td>".$row["peso"]."</td>";
-        echo "<td>".$row["intensita"]."</td>";
+        echo "<td><input type='text' class='editable-input' name='serie' value='".$row["serie"]."' onchange='salvaModifiche(".$row["id_allenamento"].", \"serie\", this.value)'></td>";
+        echo "<td><input type='text' class='editable-input' name='reps' value='".$row["reps"]."' onchange='salvaModifiche(".$row["id_allenamento"].", \"reps\", this.value)'></td>";
+        echo "<td><input type='text' class='editable-input' name='pausa' value='".$row["pausa"]."' onchange='salvaModifiche(".$row["id_allenamento"].", \"pausa\", this.value)'></td>";
+        echo "<td><input type='text' class='editable-input' name='peso' value='".$row["peso"]."' onchange='salvaModifiche(".$row["id_allenamento"].", \"peso\", this.value)'></td>";
+        echo "<td><input type='text' class='editable-input' name='intensita' value='".$row["intensita"]."' onchange='salvaModifiche(".$row["id_allenamento"].", \"intensita\", this.value)'></td>";
         echo "<td>".$row["nome_muscolo"]."</td>";
-        echo "<td>".$row["altro"]."</td>";
-        echo "<td><button class='delete-button' onclick='eliminaEsercizio(".$row["id_esercizio"].")'>Elimina</button></td>";
+        echo "<td><input type='text' class='editable-input' name='altro' value='".$row["altro"]."' onchange='salvaModifiche(".$row["id_allenamento"].", \"altro\", this.value)'></td>";
+        echo "<td><button class='delete-button' onclick='eliminaEsercizio(".$row["id_allenamento"].")'>Elimina</button></td>";
         echo "</tr>";
     }
     echo "</tbody>";
@@ -213,7 +264,29 @@ $conn->close();
 ?>
 
 <script>
-function eliminaEsercizio(idEsercizio) {
+function eliminaEsercizio(idAllenamento) {
+    if (confirm("Sei sicuro di voler eliminare questo esercizio?")) {
+        window.location.href = "modifica_allenamento.php?elimina_esercizio=" + idAllenamento + "&giorno=<?php echo $giorno_selezionato; ?>";
+    }
+}
+
+function salvaModifiche(idAllenamento, campo, valore) {
+    // Chiamata AJAX per salvare le modifiche
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+    };
+    xhttp.open("POST", "modifica_allenamento.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("id=" + idAllenamento + "&campo=" + campo + "&valore=" + encodeURIComponent(valore));
+}
+</script>
+
+</body>
+</html>
+
+
+<script>
+function eliminaEsercizio(idAllenamento) {
     if (confirm("Sei sicuro di voler eliminare questo esercizio?")) {
         // Chiamata AJAX per eliminare l'esercizio
         var xhttp = new XMLHttpRequest();
@@ -223,9 +296,19 @@ function eliminaEsercizio(idEsercizio) {
                 location.reload();
             }
         };
-        xhttp.open("GET", "modifica_allenamento.php?elimina_esercizio=" + idEsercizio + "&giorno=<?php echo $giorno_selezionato; ?>", true);
+        xhttp.open("GET", "modifica_allenamento.php?elimina_esercizio=" + idAllenamento + "&giorno=<?php echo $giorno_selezionato; ?>", true);
         xhttp.send();
     }
+}
+
+function salvaModifiche(idAllenamento, campo, valore) {
+    // Chiamata AJAX per salvare le modifiche
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+    };
+    xhttp.open("POST", "modifica_allenamento.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("id=" + idAllenamento + "&campo=" + campo + "&valore=" + encodeURIComponent(valore));
 }
 </script>
 

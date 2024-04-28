@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+// Controlla se l'utente è loggato come amministratore
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: login.php"); // Reindirizza alla pagina di login se non è un amministratore
+    exit; // Assicura che lo script termini qui
+}
+
+// Includi il file di configurazione per la connessione al database
+include 'config.php';
+?>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -47,9 +60,6 @@
         border-radius: 5px;
         margin-bottom: 20px;
     }
-    .form-container input[type="checkbox"] {
-        margin-right: 10px;
-    }
     .form-container input[type="submit"] {
         padding: 10px 20px;
         font-size: 16px;
@@ -76,31 +86,9 @@
     <form method="post">
         <label for="nome_esercizio">Nome dell'esercizio:</label>
         <input type="text" name="nome_esercizio" id="nome_esercizio" required><br>
-        <label for="serie">Serie:</label>
-        <input type="text" name="serie" id="serie" required><br>
-        <label for="reps">Ripetizioni:</label>
-        <input type="text" name="reps" id="reps" required><br>
-        <label for="pausa">Pausa:</label>
-        <input type="text" name="pausa" id="pausa" required><br>
-        <label for="peso">Peso:</label>
-        <input type="text" name="peso" id="peso" required><br>
-        <label for="intensita">Intensità:</label>
-        <input type="text" name="intensita" id="intensita" required><br>
         <label for="muscolo">Muscolo:</label>
         <select name="muscolo" id="muscolo">
             <?php
-                // Connessione al database
-                $servername = "localhost";
-                $username = "ceo";
-                $password = "1234";
-                $dbname = "tracker";
-
-                $conn = new mysqli($servername, $username, $password, $dbname);
-
-                if ($conn->connect_error) {
-                    die("Connessione fallita: " . $conn->connect_error);
-                }
-
                 // Query per ottenere i muscoli disponibili
                 $sql = "SELECT id, nome FROM muscoli";
                 $result = $conn->query($sql);
@@ -112,12 +100,8 @@
                 } else {
                     echo "<option value=''>Nessun muscolo trovato</option>";
                 }
-
-                $conn->close();
             ?>
         </select><br>
-        <label for="altro">Altro:</label>
-        <input type="text" name="altro" id="altro"><br>
         <input type="submit" name="submit" value="Aggiungi Esercizio">
     </form>
 </div>
@@ -125,28 +109,14 @@
 <?php
 if (isset($_POST['submit'])) {
     $nome_esercizio = $_POST['nome_esercizio'];
-    $serie = $_POST['serie'];
-    $reps = $_POST['reps'];
-    $pausa = $_POST['pausa'];
-    $peso = $_POST['peso'];
-    $intensita = $_POST['intensita'];
     $muscolo = $_POST['muscolo'];
-    $altro = $_POST['altro'];
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error) {
-        die("Connessione fallita: " . $conn->connect_error);
-    }
 
     // Inserimento dell'esercizio nella tabella esercizi
-    $sql_insert_esercizio = "INSERT INTO esercizi (nome, serie, reps, pausa, peso, intensita, id_muscolo, altro) VALUES ('$nome_esercizio', '$serie', '$reps', '$pausa', '$peso', '$intensita', '$muscolo', '$altro')";
+    $sql_insert_esercizio = "INSERT INTO esercizi (nome, id_muscolo) VALUES ('$nome_esercizio', '$muscolo')";
 
     if ($conn->query($sql_insert_esercizio) === FALSE) {
         echo "Errore: " . $sql_insert_esercizio . "<br>" . $conn->error;
     }
-
-    $conn->close();
 }
 ?>
 

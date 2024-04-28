@@ -1,28 +1,41 @@
 <?php
+session_start(); // Avvio della sessione
+
+// Verifica se l'utente è loggato e ha il ruolo di admin
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    // Se l'utente non è loggato o non ha il ruolo di admin, reindirizzalo alla pagina di accesso
+    header("Location: login.php");
+    exit; // Assicura che lo script termini dopo il reindirizzamento
+}
+
 $error_message = ""; // Inizializzazione del messaggio di errore
 
+// Verifica se il form è stato inviato
 if (isset($_POST['submit'])) {
+    // Recupera i dati inviati dal form
     $esercizio_id = $_POST['esercizio'];
+    $serie = $_POST['serie'];
+    $reps = $_POST['reps'];
+    $pausa = $_POST['pausa'];
+    $peso = $_POST['peso'];
+    $intensita = $_POST['intensita'];
+    $altro = $_POST['altro'];
     $giorni = isset($_POST['giorni']) ? $_POST['giorni'] : array(); // Gestione dei giorni selezionati
 
     // Controllo se è stato selezionato almeno un giorno e se è stato scelto un esercizio
     if (empty($giorni) || empty($esercizio_id)) {
         $error_message = "Si prega di selezionare almeno un giorno e un esercizio.";
     } else {
-        $servername = "localhost";
-        $username = "ceo";
-        $password = "1234";
-        $dbname = "tracker";
+        // Includi il file di configurazione del database
+        include 'config.php';
 
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        if ($conn->connect_error) {
-            die("Connessione fallita: " . $conn->connect_error);
-        }
+        // Recupera l'id utente dalla sessione
+        $id_utente = $_SESSION['user_id'];
 
         // Inserimento dell'esercizio per ogni giorno selezionato nella tabella ALLENAMENTO
         foreach ($giorni as $giorno) {
-            $sql_insert_allenamento = "INSERT INTO allenamento (id_esercizio, id_giorno) VALUES ('$esercizio_id', '$giorno')";
+            $sql_insert_allenamento = "INSERT INTO allenamento (id_utente, id_esercizio, id_giorno, serie, reps, pausa, peso, intensita, altro) 
+                                       VALUES ('$id_utente', '$esercizio_id', '$giorno', '$serie', '$reps', '$pausa', '$peso', '$intensita', '$altro')";
             if ($conn->query($sql_insert_allenamento) === FALSE) {
                 echo "Errore: " . $sql_insert_allenamento . "<br>" . $conn->error;
             }
@@ -42,13 +55,13 @@ if (isset($_POST['submit'])) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aggiungi Esercizio</title>
+<title>Modifica Allenamento</title>
 <style>
  body {
         font-family: Arial, sans-serif;
         background-color: #f2f2f2;
         margin: 0;
-        padding: 20px;
+        padding: 10px;
     }
     .back-button {
         position: absolute;
@@ -78,8 +91,7 @@ if (isset($_POST['submit'])) {
         display: block;
         margin-bottom: 10px;
     }
-    .form-container input[type="text"],
-    .form-container select {
+    .form-container select, .form-container input[type="text"] {
         width: 100%;
         padding: 10px;
         border: 1px solid #ccc;
@@ -90,40 +102,19 @@ if (isset($_POST['submit'])) {
         display: none;
     }
     .form-container input[type="checkbox"] + label {
-        display: block;
-        position: relative;
-        padding-left: 35px;
+        display: inline-block;
+        padding: 10px 20px;
+        margin-right: 10px;
+        font-size: 16px;
         cursor: pointer;
-        line-height: 25px;
-        margin-bottom: 10px;
-    }
-    .form-container input[type="checkbox"] + label:before {
-        content: "";
-        display: block;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 25px;
-        height: 25px;
         border: 1px solid #ccc;
         border-radius: 5px;
-        background-color: #fff;
+        background-color: #f2f2f2;
         transition: background-color 0.3s;
     }
-    .form-container input[type="checkbox"]:checked + label:before {
+    .form-container input[type="checkbox"]:checked + label {
         background-color: #4CAF50;
-    }
-    .form-container input[type="checkbox"] + label:after {
-        content: "\2713";
-        font-size: 18px;
-        color: #fff;
-        display: none;
-        position: absolute;
-        top: 3px;
-        left: 8px;
-    }
-    .form-container input[type="checkbox"]:checked + label:after {
-        display: block;
+        color: white;
     }
     .error-message {
         color: red;
@@ -152,23 +143,15 @@ if (isset($_POST['submit'])) {
 </div>
 
 <div class="form-container">
-<h1>AGGIUNGI ESERCIZIO ALL'ALLENAMENTO</h1>
+    <h1>AGGIUNGI ESERCIZIO</h1>
     <form method="post">
         <label for="esercizio">Scegli l'esercizio:</label>
         <select name="esercizio" id="esercizio" required>
             <option value="" selected disabled>Seleziona...</option>
             <!-- Qui ci sarà un loop per ottenere gli esercizi dal database -->
             <?php
-                $servername = "localhost";
-                $username = "ceo";
-                $password = "1234";
-                $dbname = "tracker";
-
-                $conn = new mysqli($servername, $username, $password, $dbname);
-
-                if ($conn->connect_error) {
-                    die("Connessione fallita: " . $conn->connect_error);
-                }
+                // Includi il file di configurazione del database
+                include 'config.php';
 
                 $sql = "SELECT id, nome FROM esercizi";
                 $result = $conn->query($sql);
@@ -183,7 +166,19 @@ if (isset($_POST['submit'])) {
                 $conn->close();
             ?>
         </select><br>
-        <label>Scegli i giorni:</label><br>
+        <label for="serie">Serie:</label>
+        <input type="text" name="serie" id="serie" required><br>
+        <label for="reps">Ripetizioni:</label>
+        <input type="text" name="reps" id="reps" required><br>
+        <label for="pausa">Pausa (in secondi):</label>
+        <input type="text" name="pausa" id="pausa" required><br>
+        <label for="peso">Peso (in kg):</label>
+        <input type="text" name="peso" id="peso" required><br>
+        <label for="intensita">Intensità:</label>
+        <input type="text" name="intensita" id="intensita" required><br>
+        <label for="altro">Altro:</label>
+        <input type="text" name="altro" id="altro"><br>
+        <label>Giorni:</label><br>
         <input type="checkbox" name="giorni[]" id="lunedi" value="1">
         <label for="lunedi">Lunedì</label>
         <input type="checkbox" name="giorni[]" id="martedi" value="2">
@@ -197,12 +192,22 @@ if (isset($_POST['submit'])) {
         <input type="checkbox" name="giorni[]" id="sabato" value="6">
         <label for="sabato">Sabato</label>
         <input type="checkbox" name="giorni[]" id="domenica" value="7">
-        <label for="domenica">Domenica</label>
-        <br>
+        <label for="domenica">Domenica</label><br><br>
         <?php if (!empty($error_message)) echo "<p class='error-message'>$error_message</p>"; ?>
-        <input type="submit" name="submit" class="submit-button" value="Aggiungi Allenamento">
+        <input type="submit" name="submit" class="submit-button" value="Modifica Allenamento">
     </form>
 </div>
+
+<script>
+    // Aggiungi la funzionalità per selezionare i giorni con i bottoni
+    document.querySelectorAll('.day-button').forEach(button => {
+        button.addEventListener('click', function() {
+            button.classList.toggle('active');
+            const input = document.getElementById(button.textContent.toLowerCase());
+            input.checked = !input.checked;
+        });
+    });
+</script>
 
 </body>
 </html>

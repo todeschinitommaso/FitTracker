@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dieta Venerdì</title>
+<title>Dieta del Venerdì</title>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -12,6 +12,7 @@
         padding: 20px;
     }
     .header {
+        position: relative; /* Posizionamento relativo per il posizionamento assoluto del logout */
         text-align: center;
         margin-bottom: 20px;
     }
@@ -33,6 +34,12 @@
     }
     .header a:hover {
         background-color: #e0e0e0;
+    }
+    .logout {
+        position: absolute; /* Posizionamento assoluto rispetto all'header */
+        left: -10px; /* Posizione a sinistra */
+        top: 50%; /* Allineamento al centro verticalmente */
+        transform: translateY(-50%); /* Correzione per centrare verticalmente */
     }
     table {
         width: 100%;
@@ -63,9 +70,10 @@
 <body>
 
 <div class="header">
-    <a href="index.php">ALLENAMENTO</a>
+    <a href="allenamento.php">ALLENAMENTO</a>
     <a href="dieta.php">DIETA</a>
     <a href="gestione.php">GESTIONE</a>
+    <a href="dieta.php?logout=true" class="logout">LOGOUT</a>
 </div>
 
 <h1>Dieta del <?php echo ucfirst(strftime("%A")); ?></h1>
@@ -84,22 +92,26 @@
     </thead>
     <tbody>
 <?php
-// Connessione al database
-$servername = "localhost";
-$username = "ceo"; // Nome utente del database
-$password = "1234"; // Password del database
-$dbname = "tracker"; // Nome del database
+session_start();
+include 'config.php';
 
-// Creazione della connessione
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Verifica della connessione
-if ($conn->connect_error) {
-    die("Connessione fallita: " . $conn->connect_error);
+// Controlla se l'utente è autenticato, altrimenti reindirizza al login
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
 }
 
-// ID del venerdì
-$id_venerdi = 5;
+// Logout se il parametro logout è impostato
+if (isset($_GET['logout'])) {
+    session_unset();
+    session_destroy();
+    header("Location: login.php");
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+$giorno_corrente = date("N");
 
 // Query per ottenere gli alimenti del venerdì
 $sql = "SELECT p.nome AS pasto, a.nome AS alimento, d.quantita, a.calorie, a.proteine, a.carboidrati, a.grassi
@@ -107,7 +119,7 @@ $sql = "SELECT p.nome AS pasto, a.nome AS alimento, d.quantita, a.calorie, a.pro
         INNER JOIN Giorni g ON d.id_giorno = g.id
         INNER JOIN Pasti p ON d.id_pasto = p.id
         INNER JOIN Alimenti a ON d.id_alimento = a.id
-        WHERE g.id = $id_venerdi";
+        WHERE g.id = $giorno_corrente AND d.id_utente = $user_id";
 
 $result = $conn->query($sql);
 
