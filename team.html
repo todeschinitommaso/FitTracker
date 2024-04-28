@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEAM</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('img/sfondobasic/sfondobasic-small.png'); /* Immagine di sfondo per schermi piccoli */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: #e9e495;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #69c071;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            color: #e9e495;
+            margin: 0;
+        }
+
+        header nav {
+            display: flex;
+            align-items: center;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 10px;
+        }
+
+        footer {
+            padding: 10px;
+            text-align: center;
+            color: #e9e495;
+        }
+
+        .team-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 0px;
+        }
+
+        .team-member {
+            width: 350px; /* Aumenta la larghezza del container */
+            padding: 30px; /* Aumenta il padding all'interno del container */
+            margin: 20px; /* Aumenta il margine tra i container */
+            background-color: #2f2f2f;
+            border-radius: 15px; /* Aumenta il raggio del bordo */
+            text-align: center;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* Aumenta la dimensione dell'ombra */
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px); /* Effetto di sollevamento al passaggio del mouse */
+        }
+
+        .team-member img {
+            width: 180px; /* Aumenta le dimensioni dell'immagine */
+            height: 180px; /* Aumenta le dimensioni dell'immagine */
+            border-radius: 50%; /* Rendi le immagini rotonde */
+            margin-bottom: 20px; /* Aumenta il margine inferiore dell'immagine */
+            border: 5px solid #69c071; /* Bordo verde attorno all'immagine */
+        }
+
+        .team-member h3 {
+            color: #56b98f; /* Cambiato colore del testo dei container */
+            margin: 10px 0; /* Aumenta il margine superiore e inferiore del titolo */
+            font-size: 24px; /* Aumenta la dimensione del testo */
+        }
+
+        .team-member p {
+            color: #3cb0b6; /* Cambiato colore del testo dei paragrafi */
+            margin: 5px 0; /* Aumenta il margine superiore e inferiore dei paragrafi */
+            font-size: 18px; /* Aumenta la dimensione del testo */
+        }
+
+        .github-button {
+            background-color: #69c071;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .github-button:hover {
+            background-color: #56b98f;
+        }
+
+        /* Media query per schermi più piccoli */
+        @media only screen and (max-width: 600px) {
+            body {
+                background-image: url('img/sfondi/sfondobasic-small.png');
+            }
+        }
+
+        /* Media query per schermi di dimensioni medie */
+        @media only screen and (min-width: 601px) and (max-width: 1024px) {
+            body {
+                background-image: url('img/sfondi/sfondobasic-medium.png');
+            }
+        }
+
+        /* Media query per schermi di grandi dimensioni */
+        @media only screen and (min-width: 1025px) {
+            body {
+                background-image: url('img/sfondi/sfondobasic-large.png');
+            }
+        }
+
+        h2 {
+            text-align: center;
+            color: #56b98f;
+            font-size: 60px; /* Dimensione del font aumentata */
+
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SPORTIFY</h1>
+        <nav>
+            <a href="index.html">HOME</a>
+            <a href="login.php">ACCEDI</a>
+        </nav>
+    </header>
+
+    <h2>IL NOSTRO TEAM</h2>
+
+    <main>
+        <div class="team-container">
+            <div class="team-member">
+                <img src="img/team/Tode.png" alt="Tode">
+                <h3>TOMMASO TODESCHINI</h3>
+                <p>AMMINISTRATORE DELEGATO</p>
+                <a href="https://github.com/todeschinitommaso" target="_blank" class="github-button">GitHub</a>
+            </div>
+            <div class="team-member">
+                <img src="img/team/chatgpt.png" alt="CHAT GPT">
+                <h3>CHAT GPT</h3>
+                <p>SVILUPPATORE WEB</p>
+                <a href="https://github.com/openai" target="_blank" class="github-button">GitHub</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 SPORTIFY. Tutti i diritti riservati.</p>
+    </footer>
+</body>
+</html>

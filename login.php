@@ -32,10 +32,10 @@ if (isset($_POST['login'])) {
             header("Location: allenamento.php");
             exit();
         } else {
-            echo "<p style='color: red; text-align: center;'>Credenziali errate. Riprova.</p>";
+            echo "<p style='color: #e9e495; text-align: center;'>Credenziali errate. Riprova.</p>";
         }
     } else {
-        echo "<p style='color: red; text-align: center;'>Credenziali errate. Riprova.</p>";
+        echo "<p style='color: #e9e495; text-align: center;'>Credenziali errate. Riprova.</p>";
     }
     $stmt->close();
     $conn->close();
@@ -50,74 +50,96 @@ if (isset($_POST['login'])) {
 <title>Login</title>
 <style>
 body {
+    background-image: url('img/sfondi/sfondobasic-small.png');
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
     margin: 0;
-    padding: 20px;
-}
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #e9e495;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    }
 
-.login-container {
-    max-width: 400px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+    @media only screen and (max-width: 600px) {
+            body {
+                background-image: url('img/sfondi/sfondobasic-small.png');
+            }
+        }
 
-.login-container h2 {
-    text-align: center;
-}
+        /* Media query per schermi di dimensioni medie */
+        @media only screen and (min-width: 601px) and (max-width: 1024px) {
+            body {
+                background-image: url('img/sfondi/sfondobasic-medium.png');
+            }
+        }
 
-.login-container label {
-    display: block;
-    margin-bottom: 10px;
-}
+        /* Media query per schermi di grandi dimensioni */
+        @media only screen and (min-width: 1025px) {
+            body {
+                background-image: url('img/sfondi/sfondobasic-large.png');
+            }
+        }
+    .login-container {
+        width: 100%;
+        max-width: 400px; /* Limitiamo la larghezza massima del box */
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-.login-container input[type="text"],
-.login-container input[type="password"],
-.login-container input[type="submit"],
-.login-container a {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-}
+    .login-container h2 {
+        text-align: center;
+        color: #56b98f;
+    }
 
-.login-container input[type="text"],
-.login-container input[type="password"] {
-    border: 1px solid #ccc;
-}
+    .login-container label {
+        display: block;
+        margin-bottom: 10px;
+        color: #56b98f;
+    }
 
-.login-container input[type="submit"],
-.login-container a {
-    border: none;
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+    .login-container input[type="text"],
+    .login-container input[type="password"],
+    .login-container input[type="submit"],
+    .login-container a {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
 
-.login-container input[type="submit"]:hover,
-.login-container a:hover {
-    background-color: #e0e0e0;
-}
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+        border: 1px solid #ccc;
+    }
 
-.login-container input[type="submit"] {
-    font-size: 16px;
-}
+    .login-container input[type="submit"] {
+        border: none;
+        background-color: #69c071;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-size: 16px;
+    }
 
-.login-container a {
-    font-size: 16px;
-    text-decoration: none;
-    background-color: #f2f2f2;
-    text-align: center;
-    color: #4CAF50;
-    border: 1px solid #4CAF50;
-    display: inline-block; /* Per far sì che il bottone si adatti alla larghezza del testo */
-     /* 21px è la somma dei padding */
-}
+    .login-container input[type="submit"]:hover {
+        background-color: #56b98f;
+    }
+
+    .login-container a {
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        color: #69c071; /* Verde */
+        margin-top: 10px;
+        margin-bottom: 0px;
+    }
 </style>
 </head>
 <body>
@@ -132,6 +154,7 @@ body {
         <input type="submit" name="login" value="Accedi">
     </form>
     <a href="registra.php">Non hai un account? Registrati qui</a>
+    <a href="index.html">Torna alla Home</a>
 </div>
 
 </body>

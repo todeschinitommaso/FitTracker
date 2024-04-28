@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPORTIFY</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('img/sfondo-small.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: #e9e495;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #69c071;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            color: #e9e495;
+            margin: 0;
+        }
+
+        header nav {
+            display: flex;
+            align-items: center;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 10px;
+        }
+
+        footer {
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Media query per schermi più piccoli */
+        @media only screen and (max-width: 600px) {
+            body {
+                background-image: url('img/sfondi/sfondo-small.png');
+            }
+        }
+
+        /* Media query per schermi di dimensioni medie */
+        @media only screen and (min-width: 601px) and (max-width: 1024px) {
+            body {
+                background-image: url('img/sfondi/sfondo-medium.png');
+            }
+        }
+
+        /* Media query per schermi di grandi dimensioni */
+        @media only screen and (min-width: 1025px) {
+            body {
+                background-image: url('img/sfondi/sfondo-large.png');
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SPORTIFY</h1>
+        <nav>
+            <a href="team.html">IL NOSTRO TEAM</a>
+            <a href="login.php">ACCEDI</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Contenuto della pagina -->
+    </main>
+
+    <footer>
+        <p>© 2024 SPORTIFY. Tutti i diritti riservati.</p>
+    </footer>
+</body>
+</html>

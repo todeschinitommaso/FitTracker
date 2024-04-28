@@ -86,14 +86,19 @@ $conn->close();
 <style>
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-image: url('img/sfondi/sfondobasic-small.png');
+    background-size: cover;
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .registration-container {
-    max-width: 400px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 400px; /* Impostazione della stessa larghezza massima del login */
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -102,11 +107,13 @@ body {
 
 .registration-container h2 {
     text-align: center;
+    color: #56b98f; /* Testo verde */
 }
 
 .registration-container label {
     display: block;
     margin-bottom: 10px;
+    color: #56b98f; /* Testo verde */
 }
 
 .registration-container input[type="text"],
@@ -130,7 +137,7 @@ body {
 
 .registration-container input[type="submit"] {
     border: none;
-    background-color: #4CAF50;
+    background-color: #69c071; /* Verde */
     color: white;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -138,12 +145,38 @@ body {
 }
 
 .registration-container input[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #56b98f; /* Verde più scuro */
+}
+
+.registration-container a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #69c071; /* Verde */
+    margin-top: 10px;
 }
 
 .error-message {
-    color: red;
+    color: #e9e495; /* Giallo */
     text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        background-image: url('img/sfondi/sfondobasic-small.png');
+    }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    body {
+        background-image: url('img/sfondi/sfondobasic-medium.png');
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    body {
+        background-image: url('img/sfondi/sfondobasic-large.png');
+    }
 }
 
 </style>
