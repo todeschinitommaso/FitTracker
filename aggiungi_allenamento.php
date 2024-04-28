@@ -2,10 +2,10 @@
 session_start(); // Avvio della sessione
 
 // Verifica se l'utente è loggato e ha il ruolo di admin
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    // Se l'utente non è loggato o non ha il ruolo di admin, reindirizzalo alla pagina di accesso
+if (!isset($_SESSION['user_id'])) {
+    // Reindirizza alla pagina di accesso se l'utente non è autenticato
     header("Location: login.php");
-    exit; // Assicura che lo script termini dopo il reindirizzamento
+    exit(); // Assicura che lo script termini dopo il reindirizzamento
 }
 
 $error_message = ""; // Inizializzazione del messaggio di errore

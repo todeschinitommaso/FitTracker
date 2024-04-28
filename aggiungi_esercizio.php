@@ -2,9 +2,10 @@
 session_start();
 
 // Controlla se l'utente è loggato come amministratore
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php"); // Reindirizza alla pagina di login se non è un amministratore
-    exit; // Assicura che lo script termini qui
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    // Se l'utente non è loggato o non ha il ruolo di admin, reindirizzalo alla pagina di accesso
+    header("Location: login.php");
+    exit; // Assicura che lo script termini dopo il reindirizzamento
 }
 
 // Includi il file di configurazione per la connessione al database
