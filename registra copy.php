@@ -32,44 +32,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif ($password !== $confirm_password) { // Controllo se le password coincidono
         $error_message = "Le password non coincidono";
     } else {
-        // Controllo se l'username è già presente nel database
-        $stmt = $conn->prepare("SELECT username FROM utenti WHERE username = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $stmt->store_result();
-        if ($stmt->num_rows > 0) {
-            $error_message = "L'username è già in uso";
-        }
-        $stmt->close();
+        // Hash della password
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        // Controllo se l'email è già presente nel database
-        $stmt = $conn->prepare("SELECT email FROM utenti WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $stmt->store_result();
-        if ($stmt->num_rows > 0) {
-            $error_message = "L'email è già registrata";
-        }
-        $stmt->close();
+        // Inserimento dei dati nel database
+        $sql = "INSERT INTO utenti (username, email, password, nome, cognome, data_nascita, admin) VALUES (?, ?, ?, ?, ?, ?, 0)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssss", $username, $email, $hashed_password, $nome, $cognome, $data_nascita);
 
-        if (empty($error_message)) {
-            // Hash della password
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        if ($stmt->execute()) {
+            // Svuotiamo solo le variabili relative alle password
+            unset($password);
+            unset($confirm_password);
 
-            // Inserimento dei dati nel database
-            $stmt = $conn->prepare("INSERT INTO utenti (username, email, password, nome, cognome, data_nascita, admin) VALUES (?, ?, ?, ?, ?, ?, 0)");
-            $stmt->bind_param("ssssss", $username, $email, $hashed_password, $nome, $cognome, $data_nascita);
-
-            if ($stmt->execute()) {
-                // Svuotiamo solo le variabili relative alle password
-                unset($password);
-                unset($confirm_password);
-
-                header("Location: login.php");
-                exit();
-            } else {
-                $error_message = "Si è verificato un errore durante la registrazione";
-            }
+            header("Location: login.php");
+            exit();
+        } else {
+            $error_message = "Si è verificato un errore durante la registrazione";
         }
     }
 }
@@ -145,7 +124,6 @@ body {
     color: red;
     text-align: center;
 }
-
 </style>
 </head>
 <body>
@@ -168,7 +146,6 @@ body {
         <label for="data_nascita">Data di Nascita:</label>
         <input type="date" name="data_nascita" id="data_nascita" value="<?php echo $data_nascita_val; ?>" required><br>
         <input type="submit" value="Registrati">
-        <a href="login.php">Hai giá un account? Torna al Login</a>
     </form>
     <p class="error-message"><?php echo $error_message; ?></p>
 </div>

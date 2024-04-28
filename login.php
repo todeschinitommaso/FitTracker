@@ -101,7 +101,7 @@ body {
 
 .login-container input[type="submit"]:hover,
 .login-container a:hover {
-    background-color: #45a049;
+    background-color: #e0e0e0;
 }
 
 .login-container input[type="submit"] {
@@ -116,7 +116,7 @@ body {
     color: #4CAF50;
     border: 1px solid #4CAF50;
     display: inline-block; /* Per far sì che il bottone si adatti alla larghezza del testo */
-    width: calc(100% - 21px); /* 21px è la somma dei padding */
+     /* 21px è la somma dei padding */
 }
 </style>
 </head>

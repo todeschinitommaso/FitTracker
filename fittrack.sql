@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Apr 28, 2024 alle 15:15
+-- Creato il: Apr 28, 2024 alle 17:59
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -157,8 +157,22 @@ CREATE TABLE `allenamento` (
 --
 
 INSERT INTO `allenamento` (`id`, `id_giorno`, `id_esercizio`, `id_utente`, `serie`, `reps`, `pausa`, `peso`, `intensita`, `altro`) VALUES
-(54, 7, 21, 7, 4, 6, 1, 30, 'buffer = 2', ''),
-(56, 7, 22, 7, 3, 12, 1, 16, 'utima a cedimento', '');
+(59, 1, 21, 7, 4, 8, 1, 13, '2 buffer', ''),
+(60, 4, 21, 7, 4, 8, 1, 13, '2 buffer', ''),
+(61, 1, 22, 7, 3, 10, 1, 16, 'ultima a cedimento', ''),
+(62, 4, 22, 7, 3, 10, 1, 16, 'ultima a cedimento', ''),
+(63, 1, 24, 7, 2, 15, 1, 0, 'cedimento', ''),
+(64, 4, 24, 7, 2, 15, 1, 0, 'cedimento', ''),
+(65, 1, 23, 7, 2, 15, 1, 9, 'cedimento', ''),
+(66, 4, 23, 7, 2, 15, 1, 9, 'cedimento', ''),
+(67, 1, 25, 7, 3, 10, 1, 14, 'cedimento', ''),
+(68, 4, 25, 7, 3, 10, 1, 14, 'cedimento', ''),
+(69, 1, 26, 7, 3, 12, 1, 10, 'cedimento', ''),
+(70, 4, 26, 7, 3, 12, 1, 10, 'cedimento', ''),
+(71, 1, 27, 7, 3, 12, 1, 15, 'cedimento', 'controlla la fase negativa'),
+(72, 4, 27, 7, 3, 12, 1, 15, 'cedimento', 'controlla la fase negativa'),
+(73, 1, 28, 7, 3, 12, 1, 27, 'cedimento', 'allungamento massimo'),
+(74, 4, 28, 7, 3, 12, 1, 27, 'cedimento', 'allungamento massimo');
 
 -- --------------------------------------------------------
 
@@ -201,6 +215,13 @@ CREATE TABLE `dieta` (
   `quantita` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dump dei dati per la tabella `dieta`
+--
+
+INSERT INTO `dieta` (`id`, `id_utente`, `id_giorno`, `id_pasto`, `id_alimento`, `quantita`) VALUES
+(6, 7, 7, 1, 25, 200);
+
 -- --------------------------------------------------------
 
 --
@@ -219,7 +240,25 @@ CREATE TABLE `esercizi` (
 
 INSERT INTO `esercizi` (`id`, `nome`, `id_muscolo`) VALUES
 (21, 'Panca Piana Bilancere', 7),
-(22, 'Panca Inclinata Manubri', 1);
+(22, 'Panca Inclinata Manubri', 1),
+(23, 'Croci Basse', 7),
+(24, 'Dips', 7),
+(25, 'Spinte Manubri', 15),
+(26, 'Alzate Laterali', 15),
+(27, 'French Press', 19),
+(28, 'Pushdown Corda', 19),
+(29, 'Trazioni Zavorrate', 11),
+(30, 'Rematore su panca', 20),
+(31, 'Lat Machine Presa Neutra', 11),
+(32, 'Pulley Triangolo', 20),
+(33, 'Face Pull', 15),
+(34, 'Spider Curl', 4),
+(35, 'Curl Panca Inclinata', 4),
+(36, 'Affondi Bulgari', 14),
+(37, 'Leg Extension', 14),
+(38, 'RDL Multipower con manubri', 10),
+(39, 'Calf Raise', 5),
+(40, 'Abductor Machine', 3);
 
 -- --------------------------------------------------------
 
@@ -325,7 +364,8 @@ CREATE TABLE `utenti` (
 
 INSERT INTO `utenti` (`id`, `username`, `email`, `password`, `nome`, `cognome`, `data_nascita`, `admin`) VALUES
 (7, 'Tode', 'tommaso.todeschini05@gmail.com', '$2y$10$CuYsMBASQU9VPjFBEMWrNOldZGSMbk719NsNrmGlLQx03j9s4PNHK', 'Tommaso', 'Todeschini', '2005-01-19', 1),
-(8, 'Dome', 'domy.manca.ciao@gmail.com', '$2y$10$hVi07ijaegLxD9CtSoxasergKkZGS2.SJrhjaQe6SaiwGTqpJ0Soa', 'Domenico', 'Manca', '0005-06-25', 0);
+(8, 'Dome', 'domy.manca.ciao@gmail.com', '$2y$10$hVi07ijaegLxD9CtSoxasergKkZGS2.SJrhjaQe6SaiwGTqpJ0Soa', 'Domenico', 'Manca', '0005-06-25', 0),
+(9, 'J', 'jacopo.ferrari@gmail.com', '$2y$10$opIw/dXBP87SCmSXLVaUiegOEYrBDn6fAz.HNbUXkxMxnU8VVKR.q', 'Jacopo', 'Ferrari', '2024-04-26', 0);
 
 --
 -- Indici per le tabelle scaricate
@@ -409,7 +449,7 @@ ALTER TABLE `alimenti`
 -- AUTO_INCREMENT per la tabella `allenamento`
 --
 ALTER TABLE `allenamento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT per la tabella `categorie_alimenti`
@@ -421,13 +461,13 @@ ALTER TABLE `categorie_alimenti`
 -- AUTO_INCREMENT per la tabella `dieta`
 --
 ALTER TABLE `dieta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT per la tabella `esercizi`
 --
 ALTER TABLE `esercizi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT per la tabella `giorni`
@@ -451,7 +491,7 @@ ALTER TABLE `pasti`
 -- AUTO_INCREMENT per la tabella `utenti`
 --
 ALTER TABLE `utenti`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Limiti per le tabelle scaricate
