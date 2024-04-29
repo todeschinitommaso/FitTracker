@@ -105,10 +105,13 @@ $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
 ?>
 
 <div class="header">
-    <a href="allenamento.php">ALLENAMENTO</a>
-    <a href="dieta.php">DIETA</a>
-    <a href="gestione.php">GESTIONE</a>
-    <a href="gestione.php?logout=true" class="logout">LOGOUT</a>
+    <?php if ($isAdmin): ?>
+        <a href="utenti.php">UTENTI</a>
+    <?php endif; ?>
+        <a href="allenamento.php">ALLENAMENTO</a>
+        <a href="dieta.php">DIETA</a>
+        <a href="gestione.php">GESTIONE</a>
+        <a href="gestione.php?logout=true" class="logout">LOGOUT</a>
 </div>
 
 <div class="container">

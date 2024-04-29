@@ -1,3 +1,24 @@
+<?php
+session_start(); // Avvio della sessione
+
+// Controlla se l'utente è autenticato, altrimenti reindirizza al login
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Logout se il parametro logout è impostato
+if (isset($_GET['logout'])) {
+    session_unset();
+    session_destroy();
+    header("Location: login.php");
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -219,7 +240,7 @@ $sql = "SELECT a.id AS id_allenamento,
         INNER JOIN giorni g ON a.id_giorno = g.id
         INNER JOIN esercizi e ON a.id_esercizio = e.id
         INNER JOIN muscoli m ON e.id_muscolo = m.id
-        WHERE g.id = $giorno_selezionato";
+        WHERE g.id = $giorno_selezionato AND a.id_utente = $user_id";
 
 $result = $conn->query($sql);
 
@@ -262,6 +283,7 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
+
 
 <script>
 function eliminaEsercizio(idAllenamento) {
