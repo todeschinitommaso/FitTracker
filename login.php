@@ -32,10 +32,10 @@ if (isset($_POST['login'])) {
             header("Location: allenamento.php");
             exit();
         } else {
-            echo "<p style='color: #e9e495; text-align: center;'>Credenziali errate. Riprova.</p>";
+            echo "<p style='color: red; text-align: center;'>Credenziali errate. Riprova.</p>";
         }
     } else {
-        echo "<p style='color: #e9e495; text-align: center;'>Credenziali errate. Riprova.</p>";
+        echo "<p style='color: red; text-align: center;'>Credenziali errate. Riprova.</p>";
     }
     $stmt->close();
     $conn->close();
@@ -121,7 +121,7 @@ body {
 
     .login-container input[type="submit"] {
         border: none;
-        background-color: #69c071;
+        background-color: #56b98f;
         color: white;
         cursor: pointer;
         transition: background-color 0.3s;
@@ -129,14 +129,14 @@ body {
     }
 
     .login-container input[type="submit"]:hover {
-        background-color: #56b98f;
+        background-color: #3cb0b6;
     }
 
     .login-container a {
         display: block;
         text-align: center;
         text-decoration: none;
-        color: #69c071; /* Verde */
+        color: #56b98f; /* Verde */
         margin-top: 10px;
         margin-bottom: 0px;
     }

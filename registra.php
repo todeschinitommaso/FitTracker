@@ -137,7 +137,7 @@ body {
 
 .registration-container input[type="submit"] {
     border: none;
-    background-color: #69c071; /* Verde */
+    background-color: #56b98f; /* Verde */
     color: white;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -152,12 +152,12 @@ body {
     display: block;
     text-align: center;
     text-decoration: none;
-    color: #69c071; /* Verde */
+    color: #56b98f; /* Verde */
     margin-top: 10px;
 }
 
 .error-message {
-    color: #e9e495; /* Giallo */
+    color: red;
     text-align: center;
 }
 
