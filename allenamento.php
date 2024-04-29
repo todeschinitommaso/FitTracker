@@ -33,6 +33,12 @@ $stmt->bind_param("ii", $user_id, $current_day);
 $stmt->execute();
 $result = $stmt->get_result();
 
+// Controlla se la query ha prodotto risultati
+if (!$result) {
+    echo "Errore nella query: " . $conn->error;
+    exit();
+}
+
 $conn->close();
 ?>
 
@@ -42,81 +48,35 @@ $conn->close();
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Allenamento</title>
+<link rel="stylesheet" type="text/css" href="style.css">
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    padding: 20px;
-}
-.header {
-    text-align: center;
-    margin-bottom: 20px;
-    position: relative; /* Posizionamento relativo per il contenitore header */
-}
-.header h1 {
-    margin-top: 0;
-    font-size: 24px;
-    color: #333;
-}
-.header a {
-    padding: 10px 20px;
-    margin: 0 10px;
-    font-size: 18px;
-    cursor: pointer;
-    text-decoration: none;
-    color: #4CAF50;
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    transition: background-color 0.3s;
-}
-.header a:hover {
-    background-color: #e0e0e0;
-}
-.logout {
-    position: absolute; /* Posizionamento assoluto rispetto all'header */
-    left: -10px; /* Posizione a sinistra */
-    top: 50%; /* Allineamento al centro verticalmente */
-    transform: translateY(-50%); /* Correzione per centrare verticalmente */
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-}
-th, td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-tr:hover {
-    background-color: #f0f0f0;
-}
+    body {
+        padding-top: 100px;
+    }
+
+    @media (max-width: 768px) {
+        table.responsive-table th:nth-child(n+7),
+        table.responsive-table td:nth-child(n+7) {
+            display: none;
+        }
+
+        table.responsive-table th:nth-child(6),
+        table.responsive-table td:nth-child(6) {
+            display: none;
+        }
+    }
 </style>
 </head>
 <body>
 
 <div class="header">
+    <a href="allenamento.php?logout=true">LOGOUT</a>
     <a href="allenamento.php">ALLENAMENTO</a>
     <a href="dieta.php">DIETA</a>
     <a href="gestione.php">GESTIONE</a>
-    <a href="allenamento.php?logout=true" class="logout">LOGOUT</a>
 </div>
 
-<h1>Allenamento del <?php echo ucfirst(strftime("%A")); ?></h1>
-
-<table>
+<table class="responsive-table">
     <thead>
         <tr>
             <th>Esercizio</th>
