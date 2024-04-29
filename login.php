@@ -2,8 +2,13 @@
 session_start();
 include 'config.php';
 
-// Verifica del login
+$error_message = ""; // Inizializziamo la variabile di errore
+$form_submitted = false; // Variabile per controllare se il form è stato inviato
+
+// Verifica del login solo se il form è stato inviato
 if (isset($_POST['login'])) {
+    $form_submitted = true; // Impostiamo il flag a true
+
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -18,8 +23,9 @@ if (isset($_POST['login'])) {
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
-
+    $a = 0;
     if ($result->num_rows > 0) {
+        $a = $a + 1;
         $user = $result->fetch_assoc();
         if (password_verify($password, $user['password'])) {
             // Login riuscito, impostazione della sessione
@@ -32,10 +38,16 @@ if (isset($_POST['login'])) {
             header("Location: allenamento.php");
             exit();
         } else {
-            echo "<p style='color: red; text-align: center;'>Credenziali errate. Riprova.</p>";
+            $error_message = "Credenziali errate. Riprova.";
         }
     } else {
-        echo "<p style='color: red; text-align: center;'>Credenziali errate. Riprova.</p>";
+        if($a == 0){
+            $error_message = "0";
+            exit();
+        } else {
+            $error_message = "Credenziali errate. Riprova.";
+        }
+        
     }
     $stmt->close();
     $conn->close();
@@ -140,6 +152,11 @@ body {
         margin-top: 10px;
         margin-bottom: 0px;
     }
+    /* Stili per i messaggi di errore */
+    .error-message {
+        text-align: center;
+        color: red;
+    }
 </style>
 </head>
 <body>
@@ -155,6 +172,9 @@ body {
     </form>
     <a href="registra.php">Non hai un account? Registrati qui</a>
     <a href="index.html">Torna alla Home</a>
+    <?php if ($error_message !== "") { ?>
+        <p class="error-message"><?php echo $error_message; ?></p>
+    <?php } ?>
 </div>
 
 </body>
