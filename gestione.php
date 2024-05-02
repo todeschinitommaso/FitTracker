@@ -31,6 +31,10 @@ if (isset($_GET['logout'])) {
 
 // Controllo se l'utente è admin
 $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+
+
+// Controllo se l'utente ha l'ID 7
+$isUserId7 = isset($_SESSION['user_id']) && $_SESSION['user_id'] == 7;
 ?>
 
 <div class="header">
@@ -38,7 +42,7 @@ $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
         <a href="allenamento.php">ALLENAMENTO</a>
         <a href="dieta.php">DIETA</a>
         <a href="gestione.php">GESTIONE</a>
-    <?php if ($isAdmin): ?>
+    <?php if ($isUserId7): ?>
         <a href="utenti.php">UTENTI</a>
     <?php endif; ?>
 </div>
