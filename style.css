@@ -105,7 +105,7 @@ body {
 
 /* Allenamento */
 .header {
-    background-color: #56b98f;
+    background: linear-gradient(to right, #69c071, #3cb0b6); /* Sfumatura da sinistra a destra */
     padding: 20px;
     text-align: left;
     position: fixed;
@@ -282,7 +282,7 @@ button:hover {
 .registration-container input[type="submit"],
 .login-container input[type="submit"] {
     border: none;
-    background-color: #69c071;
+    background: linear-gradient(to right, #69c071, #3cb0b6); /* Sfumatura da sinistra a destra */
     color: white;
     cursor: pointer;
     transition: background-color 0.3s;

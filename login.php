@@ -63,6 +63,7 @@ if (isset($_POST['login'])) {
 <style>
 body {
     background-image: url('img/sfondi/sfondobasic-small.png');
+    background-color: #191919;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -133,7 +134,7 @@ body {
 
     .login-container input[type="submit"] {
         border: none;
-        background-color: #56b98f;
+        background: linear-gradient(to right, #69c071, #3cb0b6); /* Sfumatura da sinistra a destra */
         color: white;
         cursor: pointer;
         transition: background-color 0.3s;
@@ -141,7 +142,7 @@ body {
     }
 
     .login-container input[type="submit"]:hover {
-        background-color: #3cb0b6;
+        background: linear-gradient(to right, #69c071, #3cb0b6); /* Sfumatura da sinistra a destra */
     }
 
     .login-container a {

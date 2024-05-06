@@ -7,7 +7,10 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <style>
     body {
-        padding-top: 80px;
+        padding-top: 60px;
+    }
+    .header{
+        background: linear-gradient(to right, #69c071, #3cb0b6); /* Sfumatura da sinistra a destra */
     }
 </style>
 </head>
@@ -42,6 +45,7 @@ $isUserId7 = isset($_SESSION['user_id']) && $_SESSION['user_id'] == 7;
         <a href="allenamento.php">ALLENAMENTO</a>
         <a href="dieta.php">DIETA</a>
         <a href="gestione.php">GESTIONE</a>
+        <a href="account.php">ACCOUNT</a>
     <?php if ($isUserId7): ?>
         <a href="utenti.php">UTENTI</a>
     <?php endif; ?>

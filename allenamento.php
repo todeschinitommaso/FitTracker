@@ -53,6 +53,9 @@ $conn->close();
     body {
         padding-top: 100px;
     }
+    .header{
+        background: linear-gradient(to right, #69c071, #3cb0b6); /* Sfumatura da sinistra a destra */
+    }
 
     @media (max-width: 768px) {
         table.responsive-table th:nth-child(n+7),
@@ -74,6 +77,7 @@ $conn->close();
     <a href="allenamento.php">ALLENAMENTO</a>
     <a href="dieta.php">DIETA</a>
     <a href="gestione.php">GESTIONE</a>
+    <a href="account.php">ACCOUNT</a>
 </div>
 
 <table class="responsive-table">

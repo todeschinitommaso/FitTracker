@@ -87,6 +87,7 @@ $conn->close();
 body {
     font-family: Arial, sans-serif;
     background-image: url('img/sfondi/sfondobasic-small.png');
+    background-color: #191919;
     background-size: cover;
     margin: 0;
     padding: 0;
@@ -137,7 +138,7 @@ body {
 
 .registration-container input[type="submit"] {
     border: none;
-    background-color: #56b98f; /* Verde */
+    background: linear-gradient(to right, #69c071, #3cb0b6); /* Sfumatura da sinistra a destra */
     color: white;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -145,7 +146,7 @@ body {
 }
 
 .registration-container input[type="submit"]:hover {
-    background-color: #56b98f; /* Verde più scuro */
+    background: linear-gradient(to right, #69c071, #3cb0b6); /* Sfumatura da sinistra a destra */
 }
 
 .registration-container a {
