@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/responsive.css" rel="stylesheet" />
+    <title>SPORTIFY</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-image: url('img/sfondi/sfondosmall.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Media query per schermi più piccoli */
+        @media only screen and (max-width: 600px) {
+            body {
+                background-image: url('img/sfondi/sfondosmall.png');
+            }
+        }
+
+        /* Media query per schermi di dimensioni medie */
+        @media only screen and (min-width: 601px) and (max-width: 1024px) {
+            body {
+                background-image: url('img/sfondi/sfondomedium.png');
+            }
+        }
+
+        /* Media query per schermi di grandi dimensioni */
+        @media only screen and (min-width: 1025px) {
+            body {
+                background-image: url('img/sfondi/sfondolarge.png');
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(to right, rgba(105, 192, 113, 0.8), rgba(60, 176, 182, 0.8)); /* Sfumatura da sinistra a destra con opacità del 80% */
+            color: #fff;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            z-index: 999;
+        }
+
+        header nav ul {
+            margin-bottom: -2px;
+            list-style: none;
+            text-align: center;
+        }
+
+        header nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Logo */
+        header img {
+            max-height: 100px; /* Aumentato l'altezza massima del logo */
+        }
+
+        /* Hero Section */
+        .hero {
+            color: #fff;
+            text-align: center;
+            padding: 280px 0;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #ff4e00;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #d74200;
+        }
+
+        /* Banner Section */
+        .banner {
+            background: linear-gradient(to right, #69c071, #3cb0b6); /* Sfumatura da sinistra a destra */
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 400px; /* Aggiunto margine per separare dai contenuti sopra */
+        }
+
+        .banner h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Training Section */
+        .training {
+            padding: 80px 0;
+            background-color: #f4f4f4;
+        }
+
+        .training {
+            text-align: center;
+        }
+
+        .training img {
+            width: 200px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .training h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        /* Nutrition Section */
+        .nutrition {
+            padding: 80px 0;
+            background-color: blue;
+        }
+
+        .nutrition {
+            text-align: center;
+        }
+
+        .nutrition img {
+            width: 200px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .nutrition h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+            background-color: #333;
+            background-image: url('img/emailbanner.jpg');
+            background-size: cover; /* Si adatta al contenitore mantenendo le proporzioni */
+            background-position: center; /* Centra l'immagine */
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .how-it-works ol {
+            list-style: none;
+        }
+
+        .how-it-works ol li {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .us_section{
+            background-image: url('img/squat.jpg');
+        }
+
+        .heathy_section{
+            margin-top: 400px; /* Aggiunto margine per separare dai contenuti sopra */
+            background-image: url('img/banner.jpg');
+        }
+
+        .slider_section{
+          background-image: url('img/start.jpg');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+          height: 800px;
+        }
+        
+        ::before{
+            background: linear-gradient(to right, #69c071, #3cb0b6); /* Sfumatura da sinistra a destra */
+        }
+        
+        /* Footer Styles */
+#footer {
+    background-color: #333;
+    color: #fff;
+    padding: 50px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-section {
+    flex: 1 1 300px; /* Riserva 300px di larghezza minima per ogni sezione del footer */
+    margin-bottom: 30px;
+}
+
+.footer-section h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.contact {
+    margin-top: 20px;
+}
+
+.contact span {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.socials a {
+    color: #fff;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.links ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.links li {
+    margin-bottom: 10px;
+}
+
+.links a {
+    color: #fff;
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #fff;
+    background-color: transparent;
+    color: #fff;
+}
+
+.contact-btn {
+  background: linear-gradient(to right, #69c071, #3cb0b6);
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.footer-bottom {
+    margin-bottom: -30px;
+
+    text-align: center;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .footer-section {
+        flex: 1 1 100%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .footer-section {
+        margin-bottom: 0;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    
+<header>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="#" onclick="scrollToSection('hero')">Home</a></li>
+                <li><a href="#" onclick="scrollToSection('about')">About</a></li>
+                <li><a href="#" onclick="scrollToSection('start')">Start</a></li>
+                <li><a href="#" onclick="scrollToSection('footer')">Info</a></li>
+                <li><a href="login.php">Accedi</a></li> <!-- Aggiunto il link "Accedi" nell'header -->
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="hero" id="hero"> <!-- Aggiunto un id per il collegamento scroll -->
+    <div class="container">
+    </div>
+</section>
+
+<section class="heathy_section layout_padding" id="about">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-12 mx-auto">
+          <div class="detail-box">
+            <h2>
+              CORPO SANO, MENTE SANA
+            </h2>
+            <p>
+              "Un corpo sano non è solo il risultato di un allenamento costante e di una dieta equilibrata, ma anche il rifugio di una mente sana, capace di affrontare le sfide quotidiane con determinazione e serenità, mantenendo un equilibrio armonioso tra fisico e psiche."
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+<section class="us_section layout_padding" >
+    <div class="container">
+      <div class="heading_container">
+        <h2>
+          Perché scegliere noi
+        </h2>
+      </div>
+
+      <div class="us_container ">
+        <div class="row">
+          <div class="col-lg-3 col-md-6">
+            <div class="box">
+              <div class="img-box">
+                <img src="img/icons/1.png" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  ALLENAMENTI
+                </h5>
+                <p>
+                    personalizza il tuo percorso scegliendo tra una vasta gamma di allenamenti
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="box">
+              <div class="img-box">
+                <img src="img/icons/4.png" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  PIANO NUTRIZIONALE
+                </h5>
+                <p>
+                    crea e gestisci il tuo piano nutrizionale ideale, adattato alle tue esigenze
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="box">
+              <div class="img-box">
+                <img src="img/icons/2.png" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  BENESSERE
+                </h5>
+                <p>
+                    esplora risorse e strumenti per migliorare il tuo benessere fisico e mentale
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="box">
+              <div class="img-box">
+                <img src="img/icons/3.png" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  MIGLIORAMENTI
+                </h5>
+                <p>
+                    scopri come raggiungere i tuoi obiettivi grazie alla costanza
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class=" slider_section position-relative" id="start">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="container">
+            <div class="col-lg-10 col-md-11 mx-auto">
+              <div class="detail-box">
+                <div>
+                  <h1>
+                    SPORTIFY
+                  </h1>
+                  <p>
+                    Cogli l'opportunità di trasformare la tua vita con un nuovo inizio: unisciti a noi nel percorso verso una migliore salute e benessere, scoprendo l'energia e la forza che risiedono in un equilibrio tra allenamenti motivanti e un piano nutrizionale pensato su misura per te. Con il nostro supporto, ogni giorno diventa un'opportunità per superare i tuoi limiti e raggiungere i tuoi obiettivi, perché la tua strada verso il successo inizia ora!
+                  </p>
+                  <div class="">
+                    <a href="registra.php">
+                      Registrati
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer">
+    <div class="container">
+        <div class="footer-content">
+
+        <div class="footer-section links">
+                <h3>Link Utili</h3>
+                <ul>
+                    <li><a href="#" onclick="scrollToSection('hero')">Home</a></li>
+                    <li><a href="login.php">Accedi</a></li>
+                    <li><a href="registra.php">Registrati</a></li> <!-- Aggiunto il link "Accedi" nell'header -->
+                </ul>
+            </div>
+
+        <div class="footer-section contact-form">
+            <h3>Contattaci</h3>
+            <div class="contact">
+                <span><i class="fas fa-phone"></i>(+39) 334 1932689</span>
+                <span><i class="fas fa-envelope"></i>tommaso.todeschini05@gmail.com</span>
+                <span><i class="fas fa-envelope"></i>[non contattatemi]</span>
+            </div>
+        </div>
+
+        <div class="footer-section about">
+            <h3>Informazioni</h3>
+            <p>Sito realizzato a scopo didattico per l'esame di maturitá 2024 | I.T.I.S. P. Paleocapa, Bergamo</p>
+            <div class="socials">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2024 Sportify. Tutti i diritti riservati.
+        </div>
+    </div>
+</footer>
+
+
+<script>
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Scorrimento verso l'inizio della sezione
+}
+
+</script>
+
+</body>
+</html>
