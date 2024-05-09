@@ -3,7 +3,9 @@ GRIGIO #191919
 GRIGIO CHIARO #2f2f2f 
 
 TESTI: 
-VERDE #69c071
-MISTO #56b98f
-AZZURO #3cb0b6
-GIALLO #e9e495
+ROSA #edb195
+ROSA CHIARO #c5b2ae
+BLU CHIARO #87b1cb
+BLU #1babe6
+
+background: linear-gradient(to right, #edb195, #1babe6);
