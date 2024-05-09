@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet" />
-    <link href="css/responsive.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
     <title>SPORTIFY</title>
     <style>
         /* Reset CSS */
@@ -21,9 +21,11 @@
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
-            background-image: url('img/sfondi/sfondosmall.png');
+            background-image: url('img/home.jpg');
+            background-color: #191919;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             background-attachment: fixed;
         }
 
@@ -56,7 +58,7 @@
 
         /* Header */
         header {
-            background: linear-gradient(to right, rgba(105, 192, 113, 0.8), rgba(60, 176, 182, 0.8)); /* Sfumatura da sinistra a destra con opacità del 80% */
+            background: linear-gradient(to right, rgba(237, 177, 149, 0.8), rgba(27, 171, 230, 0.8)); /* Sfumatura da sinistra a destra con opacità del 80% */
             color: #fff;
             padding: 20px 0;
             position: fixed;
@@ -118,7 +120,7 @@
 
         /* Banner Section */
         .banner {
-            background: linear-gradient(to right, #69c071, #3cb0b6); /* Sfumatura da sinistra a destra */
+            background: linear-gradient(to right, #edb195, #1babe6); /* Sfumatura da sinistra a destra */
             padding: 40px 0;
             text-align: center;
             margin-top: 400px; /* Aggiunto margine per separare dai contenuti sopra */
@@ -128,48 +130,6 @@
             font-size: 2em;
             margin-bottom: 20px;
             color: #333;
-        }
-
-        /* Training Section */
-        .training {
-            padding: 80px 0;
-            background-color: #f4f4f4;
-        }
-
-        .training {
-            text-align: center;
-        }
-
-        .training img {
-            width: 200px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-        }
-
-        .training h2 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-
-        /* Nutrition Section */
-        .nutrition {
-            padding: 80px 0;
-            background-color: blue;
-        }
-
-        .nutrition {
-            text-align: center;
-        }
-
-        .nutrition img {
-            width: 200px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-        }
-
-        .nutrition h2 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
         }
 
         /* How It Works Section */
@@ -213,7 +173,7 @@
         }
         
         ::before{
-            background: linear-gradient(to right, #69c071, #3cb0b6); /* Sfumatura da sinistra a destra */
+          background: linear-gradient(to right, #edb195, #1babe6);
         }
         
         /* Footer Styles */
@@ -315,6 +275,25 @@
     }
 }
 
+.heathy_section{
+  margin-top: 70px;
+}
+
+.link {
+    color: white; /* Utilizza il colore del testo circostante */
+    text-decoration: none; /* Rimuove la sottolineatura */
+}
+
+.link:hover{
+  color: white;
+}
+
+
+.scroll-down-button {
+  width: 100px;
+    display: block;
+    margin: 80px auto; /* Per centrare l'immagine orizzontalmente */
+}
 
     </style>
 </head>
@@ -338,6 +317,10 @@
     <div class="container">
     </div>
 </section>
+
+<a href="#" onclick="scrollToSection('about')">
+  <img src="img/icons/freccia-giu.png" alt="Freccia Giù" class="scroll-down-button">
+</a>
 
 <section class="heathy_section layout_padding" id="about">
     <div class="container">
@@ -443,7 +426,7 @@
               <div class="detail-box">
                 <div>
                   <h1>
-                    SPORTIFY
+                    INIZIA ORA!
                   </h1>
                   <p>
                     Cogli l'opportunità di trasformare la tua vita con un nuovo inizio: unisciti a noi nel percorso verso una migliore salute e benessere, scoprendo l'energia e la forza che risiedono in un equilibrio tra allenamenti motivanti e un piano nutrizionale pensato su misura per te. Con il nostro supporto, ogni giorno diventa un'opportunità per superare i tuoi limiti e raggiungere i tuoi obiettivi, perché la tua strada verso il successo inizia ora!
@@ -480,13 +463,15 @@
             <div class="contact">
                 <span><i class="fas fa-phone"></i>(+39) 334 1932689</span>
                 <span><i class="fas fa-envelope"></i>tommaso.todeschini05@gmail.com</span>
-                <span><i class="fas fa-envelope"></i>[non contattatemi]</span>
+                <span><i class="fas fa-envelope"></i>[non contattateci :)  ]</span>
             </div>
         </div>
 
         <div class="footer-section about">
             <h3>Informazioni</h3>
-            <p>Sito realizzato a scopo didattico per l'esame di maturitá 2024 | I.T.I.S. P. Paleocapa, Bergamo</p>
+            <p>Sito realizzato a scopo didattico per l'esame di maturitá 2024 | I.T.I.S. P. Paleocapa, Bergamo
+              <br><br> <a href="https://github.com/todeschinitommaso/Sportify" class="link" target="_blank">repository github</a>
+            </p>
             <div class="socials">
                 <a href="#"><i class="fab fa-facebook"></i></a>
                 <a href="#"><i class="fab fa-twitter"></i></a>
